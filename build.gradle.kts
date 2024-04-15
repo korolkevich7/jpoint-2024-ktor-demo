@@ -1,13 +1,7 @@
-
-val ktor_version: String by project
-val kotlin_version: String by project
-val logback_version: String by project
-
 plugins {
-    application
-    kotlin("jvm") version "1.9.23"
-    id("io.ktor.plugin") version "2.3.10"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
+    kotlin("jvm")
+    kotlin("plugin.serialization")
+    id("io.ktor.plugin")
 }
 
 group = "jugru.org"
@@ -25,28 +19,28 @@ repositories {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core-jvm")
-    implementation("io.ktor:ktor-server-content-negotiation-jvm")
-    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
-    implementation("io.ktor:ktor-server-call-logging-jvm")
-    implementation("io.ktor:ktor-server-cors-jvm")
-    implementation("io.ktor:ktor-server-host-common-jvm")
-    implementation("io.ktor:ktor-server-status-pages-jvm")
-    implementation("io.ktor:ktor-server-netty-jvm")
-    implementation("io.ktor:ktor-server-websockets-jvm")
-    implementation("io.ktor:ktor-server-rate-limit")
-    implementation("io.ktor:ktor-server-auth-jvm")
+    implementation(libs.ktor.server.core.jvm)
+    implementation(libs.ktor.server.content.negotiation.jvm)
+    implementation(libs.ktor.serialization.kotlinx.json.jvm)
+    implementation(libs.ktor.server.call.logging.jvm)
+    implementation(libs.ktor.server.cors.jvm)
+    implementation(libs.ktor.server.host.common.jvm)
+    implementation(libs.ktor.server.status.pages.jvm)
+    implementation(libs.ktor.server.netty.jvm)
+    implementation(libs.ktor.server.websockets.jvm)
+    implementation(libs.ktor.server.rate.limit)
+    implementation(libs.ktor.server.auth.jvm)
 
-    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation(libs.logback.classic)
 
-    implementation("org.jetbrains.exposed:exposed-core:0.49.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.49.0")
-    implementation("org.jetbrains.exposed:exposed-dao:0.49.0")
-    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.49.0")
+    implementation(JetBrains.exposed.core)
+    implementation(JetBrains.exposed.jdbc)
+    implementation(JetBrains.exposed.dao)
+    implementation(libs.exposed.kotlin.datetime)
 
-    implementation("com.h2database:h2:2.2.224")
+    implementation(libs.h2)
 
-    testImplementation("io.ktor:ktor-server-content-negotiation-jvm")
-    testImplementation("io.ktor:ktor-server-tests-jvm")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation(libs.ktor.server.content.negotiation.jvm)
+    testImplementation(libs.ktor.server.tests.jvm)
+    testImplementation(Kotlin.test.junit)
 }

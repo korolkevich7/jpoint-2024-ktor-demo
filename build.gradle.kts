@@ -39,12 +39,12 @@ dependencies {
 
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
-    implementation("org.jetbrains.exposed:exposed-core:0.41.1")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
-    implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
-    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.41.1")
+    implementation("org.jetbrains.exposed:exposed-core:0.49.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.49.0")
+    implementation("org.jetbrains.exposed:exposed-dao:0.49.0")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.49.0")
 
-    implementation("com.h2database:h2:2.1.214")
+    implementation("com.h2database:h2:2.2.224")
 
     testImplementation("io.ktor:ktor-server-content-negotiation-jvm")
     testImplementation("io.ktor:ktor-server-tests-jvm")

@@ -26,6 +26,8 @@ ktor-server-content-negotiation-jvm = { module = "io.ktor:ktor-server-content-ne
 
 ktor-serialization-kotlinx-json-jvm = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm" }
 
+ktor-serialization-jackson-jvm = { module = "io.ktor:ktor-serialization-jackson-jvm" }
+
 ktor-server-call-logging-jvm = { module = "io.ktor:ktor-server-call-logging-jvm" }
 
 ktor-server-cors-jvm = { module = "io.ktor:ktor-server-cors-jvm" }

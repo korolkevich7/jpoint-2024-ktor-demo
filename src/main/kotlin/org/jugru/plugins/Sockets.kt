@@ -1,11 +1,12 @@
 package org.jugru.plugins
 
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import io.ktor.server.websocket.*
-import io.ktor.websocket.*
-import java.time.Duration
+import io.ktor.server.application.Application
+import io.ktor.server.routing.routing
+import io.ktor.server.websocket.webSocket
+import io.ktor.websocket.CloseReason
+import io.ktor.websocket.Frame
+import io.ktor.websocket.close
+import io.ktor.websocket.readText
 
 fun Application.configureSockets() {
     routing {

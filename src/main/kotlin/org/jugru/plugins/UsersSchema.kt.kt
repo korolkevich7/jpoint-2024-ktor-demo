@@ -5,56 +5,91 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import kotlinx.serialization.Serializable
 import kotlinx.coroutines.Dispatchers
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.*
 
 @Serializable
-data class ExposedUser(val name: String, val age: Int)
-class UserService(private val database: Database) {
-    object Users : Table() {
-        val id = integer("id").autoIncrement()
-        val name = varchar("name", length = 50)
-        val age = integer("age")
+data class SpeakerEntity(
+    val id: Int? = null,
+    val firstName: String,
+    val lastName: String,
+    val age: Int,
+    val description: String,
+)
 
-        override val primaryKey = PrimaryKey(id)
+class SpeakerService(private val database: Database) {
+    object Speakers : IntIdTable("speakers") {
+        val firstName = varchar("first_name", 50)
+        val lastName = varchar("last_name", 50)
+        val age = integer("age")
+        val description = varchar("description", 255)
     }
 
     init {
         transaction(database) {
-            SchemaUtils.create(Users)
+            SchemaUtils.create(Speakers)
         }
     }
 
     suspend fun <T> dbQuery(block: suspend () -> T): T =
         newSuspendedTransaction(Dispatchers.IO) { block() }
 
-    suspend fun create(user: ExposedUser): Int = dbQuery {
-        Users.insert {
-            it[name] = user.name
-            it[age] = user.age
-        }[Users.id]
-    }
+    suspend fun create(user: SpeakerEntity): Int =
+        dbQuery {
+            Speakers.insert {
+                it[firstName] = user.firstName
+                it[lastName] = user.lastName
+                it[age] = user.age
+                it[description] = user.description
+            }[Speakers.id].value
+        }
 
-    suspend fun read(id: Int): ExposedUser? {
+    suspend fun read(id: Int): SpeakerEntity? =
+        dbQuery {
+            Speakers.selectAll()
+                .where { Speakers.id eq id }
+                .map {
+                    SpeakerEntity(
+                        it[Speakers.id].value,
+                        it[Speakers.firstName],
+                        it[Speakers.lastName],
+                        it[Speakers.age],
+                        it[Speakers.description],
+                    )
+                }.singleOrNull()
+        }
+
+    suspend fun readAll(): List<SpeakerEntity> {
         return dbQuery {
-            Users.select { Users.id eq id }
-                .map { ExposedUser(it[Users.name], it[Users.age]) }
-                .singleOrNull()
+            Speakers.selectAll()
+                .map {
+                    SpeakerEntity(
+                        it[Speakers.id].value,
+                        it[Speakers.firstName],
+                        it[Speakers.lastName],
+                        it[Speakers.age],
+                        it[Speakers.description],
+                    )
+                }
         }
     }
 
-    suspend fun update(id: Int, user: ExposedUser) {
+    suspend fun update(
+        id: Int,
+        user: SpeakerEntity,
+    ): Unit =
         dbQuery {
-            Users.update({ Users.id eq id }) {
-                it[name] = user.name
+            Speakers.update({ Speakers.id eq id }) {
+                it[firstName] = user.firstName
+                it[lastName] = user.lastName
                 it[age] = user.age
+                it[description] = user.description
             }
         }
-    }
 
-    suspend fun delete(id: Int) {
+    suspend fun delete(id: Int): Unit =
         dbQuery {
-            Users.deleteWhere { Users.id.eq(id) }
+            Speakers.deleteWhere { Speakers.id eq id }
         }
-    }
 }
 

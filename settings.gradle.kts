@@ -1,4 +1,4 @@
-rootProject.name = "jugru.org.jpoint-2024-ktor-demo"
+rootProject.name = "org.jugru.jpoint-2024-ktor-demo"
 
 plugins {
     // See https://jmfayard.github.io/refreshVersions

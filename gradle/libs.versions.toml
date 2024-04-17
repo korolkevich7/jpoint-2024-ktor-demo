@@ -2,11 +2,13 @@
 
 [plugins]
 
-org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+org-jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 
 io-ktor-plugin = { id = "io.ktor.plugin", version.ref = "ktor" }
 
 org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+org-jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 
 [versions]
 
@@ -16,21 +18,21 @@ ktor = "2.3.10"
 
 jetbrains-exposed = "0.49.0"
 
+compose = "1.6.1"
+
 [libraries]
 
 ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
 
-ktor-server-core-jvm = { module = "io.ktor:ktor-server-core-jvm" }
-
 ktor-server-content-negotiation-jvm = { module = "io.ktor:ktor-server-content-negotiation-jvm" }
 
-ktor-serialization-kotlinx-json-jvm = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm" }
+ktor-server-core-jvm = { module = "io.ktor:ktor-server-core-jvm" }
+
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 ktor-serialization-jackson-jvm = { module = "io.ktor:ktor-serialization-jackson-jvm" }
 
 ktor-server-call-logging-jvm = { module = "io.ktor:ktor-server-call-logging-jvm" }
-
-ktor-server-cors-jvm = { module = "io.ktor:ktor-server-cors-jvm" }
 
 ktor-server-host-common-jvm = { module = "io.ktor:ktor-server-host-common-jvm" }
 
@@ -38,7 +40,9 @@ ktor-server-status-pages-jvm = { module = "io.ktor:ktor-server-status-pages-jvm"
 
 ktor-server-netty-jvm = { module = "io.ktor:ktor-server-netty-jvm" }
 
-ktor-server-websockets-jvm = { module = "io.ktor:ktor-server-websockets-jvm" }
+ktor-server-websockets = { module = "io.ktor:ktor-server-websockets" }
+
+ktor-server-cors = { module = "io.ktor:ktor-server-cors" }
 
 ktor-server-rate-limit = { module = "io.ktor:ktor-server-rate-limit" }
 
@@ -46,12 +50,30 @@ ktor-server-auth-jvm = { module = "io.ktor:ktor-server-auth-jvm" }
 
 logback-classic = "ch.qos.logback:logback-classic:1.5.5"
 
+exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "jetbrains-exposed" }
+
+exposed-dao = { group = "org.jetbrains.exposed", name = "exposed-dao", version.ref = "jetbrains-exposed" }
+
+exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "jetbrains-exposed" }
+
 exposed-kotlin-datetime = { group = "org.jetbrains.exposed", name = "exposed-kotlin-datetime", version.ref = "jetbrains-exposed" }
 
 h2 = "com.h2database:h2:2.2.224"
+
+postgres = "org.postgresql:postgresql:42.7.3"
 
 kotlin-scripting-compiler-embeddable = { group = "org.jetbrains.kotlin", name = "kotlin-scripting-compiler-embeddable", version.ref = "kotlin" }
 
 kotlin-serialization-compiler-plugin-embeddable = { group = "org.jetbrains.kotlin", name = "kotlin-serialization-compiler-plugin-embeddable", version.ref = "kotlin" }
 
 ktor-server-tests-jvm = { module = "io.ktor:ktor-server-tests-jvm" }
+
+kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+
+ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
+
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }

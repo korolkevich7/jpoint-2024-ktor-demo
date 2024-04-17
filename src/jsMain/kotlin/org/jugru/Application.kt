@@ -26,9 +26,12 @@ import org.w3c.dom.HTMLFormElement
 import org.w3c.dom.get
 import org.w3c.xhr.FormData
 
+const val API_URL = "/jpoint-demo/api"
+const val PORT = 8080
+
 
 private suspend fun HttpClient.addSpeaker(speaker: SpeakerDTO, route: String = "/v3/speakers") {
-    post("http://localhost:8080/jpoint$route") {
+    post("http://localhost:$PORT$API_URL$route") {
         contentType(ContentType.Application.Json)
         setBody(speaker)
     }
@@ -74,7 +77,7 @@ fun Application() {
     val speakers = remember { mutableStateListOf<SpeakerDTO>().apply { addAll(fakeData) } }
 
     LaunchedEffect(Unit) {
-        client.webSocket(path = "jpoint/v4/speakers", host = "localhost", port = 8080) {
+        client.webSocket(path = "$API_URL/v3/speakers", host = "localhost", port = PORT) {
             while (isActive) {
                 val newSpeaker: SpeakerDTO = receiveDeserialized()
                 console.info("Received $newSpeaker")

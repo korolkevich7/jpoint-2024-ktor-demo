@@ -5,6 +5,7 @@ import io.ktor.serialization.kotlinx.KotlinxWebsocketSerializationConverter
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.application.install
+import io.ktor.server.http.content.staticResources
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
@@ -36,11 +37,20 @@ fun Application.configureRouting() {
     }
 
     routing {
+        frontend()
+
         route(API_URL) {
             routeV1()
             routeV2()
         }
     }
+}
+
+/**
+ * Serve html and js bundle
+ */
+fun Route.frontend() {
+    staticResources("/", "")
 }
 
 private fun Application.exceptionHandling() {
